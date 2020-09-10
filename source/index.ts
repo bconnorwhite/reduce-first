@@ -1,10 +1,9 @@
 
-export default function reduceFirst<T>(array: T[], callback: (currentValue: T, index: number, array: T[]) => any) {
-  return array.slice(0).reduce((retval, item, index, array) => {
-    let value = callback(item, index, array);
+export default function reduceFirst<T, U>(array: T[], callback: (currentValue: T, index: number, array: T[]) => U): U | undefined {
+  for(let index=0; index < array.length; index++) {
+    const value = callback(array[index], index, array);
     if(value !== undefined) {
-      array.splice(1);
       return value;
     }
-  }, undefined);
+  }
 };
